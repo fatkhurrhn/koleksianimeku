@@ -1,4 +1,4 @@
-# 🌸 Wibunary
+# ▶️ Wibunary
 
 Wibunary adalah aplikasi web personal berbasis React untuk mencatat dan mengelola koleksi anime yang telah kamu tonton. Dibuat dengan cinta oleh seorang wibu, untuk wibu ✨
 
