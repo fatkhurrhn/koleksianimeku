@@ -1,0 +1,49 @@
+.plyr {
+  --plyr-color-main: #3b82f6;
+}
+
+.plyr--video {
+  border-radius: 0.5rem;
+}
+
+.anime-card {
+  transition: all 0.3s ease;
+}
+
+.anime-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.episode-card {
+  transition: all 0.2s ease;
+}
+
+.episode-card:hover {
+  background-color: #f8fafc;
+  border-color: #3b82f6;
+}
+
+.bottom-nav {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.9);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+  transition: all 0.2s ease;
+}
+
+.nav-item.active {
+  color: #3b82f6;
+}
+
+.nav-item:hover {
+  color: #3b82f6;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+}

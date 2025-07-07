@@ -1,7 +1,6 @@
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { animeData } from '../data/dummyData';
-import GenreBadge from '../components/GenreBadge';
-import AnimeCard from '../components/AnimeCard';
+import { animeData } from '../data/animeData.js';
 
 const AnimeDetail = () => {
   const { id } = useParams();
@@ -9,164 +8,115 @@ const AnimeDetail = () => {
 
   if (!anime) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Anime not found</h1>
-          <Link
-            to="/"
-            className="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-          >
-            <i className="ri-arrow-left-line mr-2"></i>
-            Back to Home
-          </Link>
-        </div>
+      <div className="container mx-auto px-4 py-8 text-center">
+        <p className="text-gray-600">Anime tidak ditemukan</p>
       </div>
     );
   }
 
-  // Get recommendations (top 3 highest scored anime excluding current)
-  const recommendations = animeData
-    .filter(a => a.id !== anime.id)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 3);
-
-  const statusConfig = {
-    complete: {
-      color: 'bg-green-100 text-green-800',
-      icon: 'ri-checkbox-circle-line',
-      text: 'Complete'
-    },
-    ongoing: {
-      color: 'bg-blue-100 text-blue-800',
-      icon: 'ri-play-line',
-      text: 'Ongoing'
-    }
+  const getStatusColor = (status) => {
+    return status === 'completed' ? 'bg-green-100 text-green-800' : 'bg-orange-100 text-orange-800';
   };
 
-  const status = statusConfig[anime.status] || statusConfig.ongoing;
+  const getStatusText = (status) => {
+    return status === 'completed' ? 'Selesai' : 'Belum Selesai';
+  };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Back Button */}
-      <div className="mb-6">
-        <Link
-          to="/"
-          className="inline-flex items-center text-sm text-gray-600 hover:text-gray-900 transition-colors"
-        >
-          <i className="ri-arrow-left-line mr-1"></i>
-          Back to Home
-        </Link>
-      </div>
-
-      {/* Main Content */}
-      <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-        <div className="md:flex">
-          {/* Thumbnail */}
-          <div className="md:w-1/3 lg:w-1/4">
-            <img
-              src={anime.thumbnail}
+    <div className="container mx-auto px-4 py-6">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:w-1/3 lg:w-1/4">
+            <img 
+              src={anime.thumbnail} 
               alt={anime.title}
-              className="w-full h-64 md:h-full object-cover"
+              className="w-full h-64 md:h-96 object-cover"
             />
           </div>
-
-          {/* Details */}
-          <div className="flex-1 p-6 lg:p-8">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4">
-              <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-0">
-                {anime.title}
-              </h1>
-              <div className="flex items-center space-x-2">
-                <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${status.color}`}>
-                  <i className={`${status.icon} mr-1`}></i>
-                  {status.text}
-                </span>
-                {anime.score && (
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
-                    <i className="ri-star-fill mr-1"></i>
-                    {anime.score}/10
-                  </span>
-                )}
-              </div>
-            </div>
-
-            {/* Info Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              {anime.studio && (
-                <div className="flex items-center text-gray-600">
-                  <i className="ri-building-line mr-2 text-gray-400"></i>
-                  <span className="text-sm">Studio: </span>
-                  <span className="text-sm font-medium ml-1">{anime.studio}</span>
-                </div>
-              )}
-              
-              {anime.year && (
-                <div className="flex items-center text-gray-600">
-                  <i className="ri-calendar-line mr-2 text-gray-400"></i>
-                  <span className="text-sm">Year: </span>
-                  <span className="text-sm font-medium ml-1">{anime.year}</span>
-                </div>
-              )}
-              
-              {anime.episodes && (
-                <div className="flex items-center text-gray-600">
-                  <i className="ri-play-list-line mr-2 text-gray-400"></i>
-                  <span className="text-sm">Episodes: </span>
-                  <span className="text-sm font-medium ml-1">{anime.episodes}</span>
-                </div>
-              )}
-
-              {anime.watchLink && (
-                <div className="flex items-center">
-                  <a
-                    href={anime.watchLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-lg hover:bg-blue-600 transition-colors"
-                  >
-                    <i className="ri-external-link-line mr-2"></i>
-                    Watch Now
-                  </a>
-                </div>
-              )}
-            </div>
-
-            {/* Genres */}
-            <div className="mb-6">
-              <h3 className="text-sm font-medium text-gray-900 mb-2">Genres</h3>
-              <div className="flex flex-wrap gap-2">
-                {anime.genre?.map(genre => (
-                  <GenreBadge key={genre} genre={genre} />
-                ))}
-              </div>
-            </div>
-
-            {/* Description */}
-            {anime.description && (
+          <div className="flex-1 p-6">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
+              {anime.title}
+            </h1>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div>
-                <h3 className="text-sm font-medium text-gray-900 mb-2">Description</h3>
-                <p className="text-gray-600 leading-relaxed">{anime.description}</p>
+                <h3 className="font-semibold text-gray-700 mb-2">Informasi</h3>
+                <div className="space-y-2 text-sm text-gray-600">
+                  <p className="flex items-center">
+                    <i className="ri-star-line mr-2"></i>
+                    Rating: {anime.rating}/10
+                  </p>
+                  <p className="flex items-center">
+                    <i className="ri-bookmark-line mr-2"></i>
+                    Genre: {anime.genres.join(', ')}
+                  </p>
+                  <p className="flex items-center">
+                    <i className="ri-film-line mr-2"></i>
+                    Episodes: {anime.episodes}
+                  </p>
+                  <p className="flex items-center">
+                    <i className="ri-calendar-line mr-2"></i>
+                    Tahun: {anime.year}
+                  </p>
+                  <p className="flex items-center">
+                    <i className="ri-building-line mr-2"></i>
+                    Studio: {anime.studio}
+                  </p>
+                </div>
               </div>
-            )}
+              
+              <div>
+                <h3 className="font-semibold text-gray-700 mb-2">Status</h3>
+                <div className="space-y-2">
+                  <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(anime.status)}`}>
+                    {getStatusText(anime.status)}
+                  </span>
+                  {anime.status === 'watching' && (
+                    <p className="text-sm text-blue-600">
+                      <i className="ri-time-line mr-1"></i>
+                      Episode terakhir: {anime.lastWatchedEpisode}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="font-semibold text-gray-700 mb-2">Deskripsi</h3>
+              <p className="text-gray-600 leading-relaxed">
+                {anime.description}
+              </p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Recommendations */}
-      {recommendations.length > 0 && (
-        <div className="mt-12">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-gray-900">Recommended for You</h2>
-            <p className="text-sm text-gray-500">Top rated anime</p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {recommendations.map(anime => (
-              <AnimeCard key={anime.id} anime={anime} />
-            ))}
-          </div>
+      <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">
+          Daftar Episode
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {anime.episodeList.map((episode) => (
+            <Link
+              key={episode.number}
+              to={`/anime/${anime.id}/episode/${episode.number}`}
+              className="episode-card p-4 border border-gray-200 rounded-lg hover:border-blue-300 transition-all"
+            >
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-semibold text-gray-800">
+                    Episode {episode.number}
+                  </h3>
+                  <p className="text-sm text-gray-600 line-clamp-2">
+                    {episode.title}
+                  </p>
+                </div>
+                <i className="ri-play-circle-line text-2xl text-blue-600"></i>
+              </div>
+            </Link>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };

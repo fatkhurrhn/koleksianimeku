@@ -1,30 +1,29 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './hooks/useAuth.jsx';
-import Header from './components/Header';
-import Home from './pages/Home';
-import AnimeDetail from './pages/AnimeDetail';
-import GenrePage from './pages/GenrePage';
-import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout.jsx';
+import Home from './pages/Home.jsx';
+import AnimeDetail from './pages/AnimeDetail.jsx';
+import EpisodePlayer from './pages/EpisodePlayer.jsx';
+import Search from './pages/Search.jsx';
+import Genre from './pages/Genre.jsx';
+import Status from './pages/Status.jsx';
+import More from './pages/More.jsx';
+import './App.css';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Header />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/anime/:id" element={<AnimeDetail />} />
-              <Route path="/genre/:genre" element={<GenrePage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
-    </AuthProvider>
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/anime/:id" element={<AnimeDetail />} />
+        <Route path="/anime/:id/episode/:episodeNumber" element={<EpisodePlayer />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/genre" element={<Genre />} />
+        <Route path="/genre/:genreName" element={<Genre />} />
+        <Route path="/status" element={<Status />} />
+        <Route path="/more" element={<More />} />
+      </Routes>
+    </Layout>
   );
 }
 
