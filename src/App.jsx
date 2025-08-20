@@ -1,30 +1,36 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './hooks/useAuth.jsx';
-import Header from './components/Header';
-import Home from './pages/Home';
-import AnimeDetail from './pages/AnimeDetail';
-import GenrePage from './pages/GenrePage';
-import Login from './pages/Login';
-import AdminDashboard from './pages/AdminDashboard';
+import Home from './pages/anime/Home';
+import AnimeDetail from './pages/anime/AnimeDetail';
+import EpisodePlayer from './pages/anime/EpisodePlayer';
+import Genre from './pages/anime/Genre';
+import Story from './pages/anime/Story';
+import Status from './pages/anime/Status';
+import More from './pages/anime/More';
+import Login from './pages/admin/Login';
+import Dashboard from './pages/admin/Dashboard';
+import ManageAnime from './pages/admin/ManageAnime';
+import ManageReelsAnime from './pages/admin/ManageReelsAnime';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Header />
-          <main>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/anime/:id" element={<AnimeDetail />} />
-              <Route path="/genre/:genre" element={<GenrePage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-            </Routes>
-          </main>
-        </div>
-      </Router>
-    </AuthProvider>
+    <Router>
+      <Routes>
+        {/* ── Anime Routes ──────────────── */}
+        <Route path="/" element={<Home />} />
+        <Route path="/anime/:id" element={<AnimeDetail />} />
+        <Route path="/anime/:id/episode/:episodeNumber" element={<EpisodePlayer />} />
+        <Route path="/anime/story" element={<Story />} />
+        <Route path="/anime/genre" element={<Genre />} />
+        <Route path="/genre/:genreName" element={<Genre />} />
+        <Route path="/anime/status" element={<Status />} />
+        <Route path="/anime/more" element={<More />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/manage-anime" element={<ManageAnime />} />
+        <Route path="/dashboard/manage-reels" element={<ManageReelsAnime />} />
+      </Routes>
+    </Router>
   );
 }
 
