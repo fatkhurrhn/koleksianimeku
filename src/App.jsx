@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/anime/Home';
 import AnimeDetail from './pages/anime/AnimeDetail';
 import EpisodePlayer from './pages/anime/EpisodePlayer';
@@ -13,24 +13,23 @@ import ManageReelsAnime from './pages/admin/ManageReelsAnime';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* ── Anime Routes ──────────────── */}
-        <Route path="/" element={<Home />} />
-        <Route path="/anime/:id" element={<AnimeDetail />} />
-        <Route path="/anime/:id/episode/:episodeNumber" element={<EpisodePlayer />} />
-        <Route path="/anime/story" element={<Story />} />
-        <Route path="/anime/genre" element={<Genre />} />
-        <Route path="/genre/:genreName" element={<Genre />} />
-        <Route path="/anime/status" element={<Status />} />
-        <Route path="/anime/more" element={<More />} />
+    <Routes>
+      {/* ── Anime Routes ──────────────── */}
+      <Route path="/" element={<Home />} />
+      <Route path="/anime/:id" element={<AnimeDetail />} />
+      <Route path="/anime/:id/episode/:episodeNumber" element={<EpisodePlayer />} />
+      <Route path="/anime/story" element={<Story />} />
+      <Route path="/anime/genre" element={<Genre />} />
+      <Route path="/genre/:genreName" element={<Genre />} />
+      <Route path="/anime/status" element={<Status />} />
+      <Route path="/anime/more" element={<More />} />
 
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/manage-anime" element={<ManageAnime />} />
-        <Route path="/dashboard/manage-reels" element={<ManageReelsAnime />} />
-      </Routes>
-    </Router>
+      {/* ── Admin Routes ──────────────── */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard/manage-anime" element={<ManageAnime />} />
+      <Route path="/dashboard/manage-reels" element={<ManageReelsAnime />} />
+    </Routes>
   );
 }
 
