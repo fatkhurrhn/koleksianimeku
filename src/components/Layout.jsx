@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,13 +7,8 @@ import LogoutConfirmModal from "./LogoutConfirmModal";
 
 const pageTitles = {
   "/dashboard": "Dashboard",
-  "/dashboard/manage-animes": "Manage Animes",
-  "/dashboard/animes/manage-reels": "Manage Reels",
-  "/dashboard/frontdev/manage-projects": "Manage Projects",
-  "/dashboard/frontdev/manage-certificates": "Manage Certificates",
-  "/dashboard/frontdev/manage-blogs": "Manage Blogs",
-  "/dashboard/creator/manage-quotes": "Manage Quotes",
-  "/dashboard/creator/manage-audio": "Manage Audio",
+  "/dashboard/manage-anime": "Manage Animes",
+  "/dashboard/manage-reels": "Manage Reels",
 };
 
 export default function Layout({ children }) {
@@ -89,26 +83,3 @@ export default function Layout({ children }) {
     </div>
   );
 }
-=======
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import Navbar from './Navbar.jsx';
-import BottomNavigation from './BottomNavigation.jsx';
-
-const Layout = ({ children }) => {
-  const location = useLocation();
-  const isEpisodePage = location.pathname.includes('/episode/');
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {!isEpisodePage && <Navbar />}
-      <main className={`${!isEpisodePage ? 'pt-16 pb-20' : 'pb-20'} md:pb-8`}>
-        {children}
-      </main>
-      {!isEpisodePage && <BottomNavigation />}
-    </div>
-  );
-};
-
-export default Layout;
->>>>>>> beb92bfbf82887cc86192d4013fe1d4447767907
